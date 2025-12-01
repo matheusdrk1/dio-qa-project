@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project>
+    <projectId>10033</projectId>
+    <projectKey>PD</projectKey>
+    <exportDate>2025-12-01 15:38:49 UTC</exportDate>
+    <folders/>
+    <testCases>
+        <testCase id="282502089" key="PD-T1">
+            <attachments/>
+            <confluencePageLinks/>
+            <createdBy>Matheus Castro</createdBy>
+            <createdOn>2025-12-01 15:10:21 UTC</createdOn>
+            <customFields/>
+            <issues/>
+            <labels/>
+            <name><![CDATA[PD 1 - Usuário Deslogado Adiciona Item e Faz Login para Concluir Compra]]></name>
+            <objective><![CDATA[Fazer login para comprar um item]]></objective>
+            <owner>712020:f854f496-6317-405f-8145-40e138fac50f</owner>
+            <priority><![CDATA[Normal]]></priority>
+            <status><![CDATA[Approved]]></status>
+            <parameters/>
+            <testDataWrapper/>
+            <testScript type="bdd">
+                <details><![CDATA[Given que o usuário está na página inicial e deslogado
+    And que o produto "Moletom Classic" está disponível em estoque (ID: 123)
+    
+    When o usuário navega para a página do produto "Moletom Classic"
+    And o usuário clica em "Adicionar ao Carrinho"
+    And o usuário clica em "Finalizar Compra"
+    
+    Then o sistema deve exibir a tela de Login ou Cadastro
+    And o carrinho deve conter 1 unidade do "Moletom Classic"
+    
+    When o usuário insere as credenciais válidas "cliente@exemplo.com" e "Senha123"
+    And clica no botão "Entrar"
+    
+    Then o usuário deve ser redirecionado para a etapa de "Endereço de Entrega"
+    And o carrinho deve manter o "Moletom Classic" no resumo da compra.]]></details>
+            </testScript>
+        </testCase>
+        <testCase id="282503365" key="PD-T2">
+            <attachments/>
+            <confluencePageLinks/>
+            <createdBy>Matheus Castro</createdBy>
+            <createdOn>2025-12-01 15:21:38 UTC</createdOn>
+            <customFields/>
+            <issues/>
+            <labels/>
+            <name><![CDATA[PD 2 - Tentativa de Login Inválida no Checkout com Retenção do Carrinho]]></name>
+            <objective><![CDATA[Login invalido ao comprar um item<br><br>]]></objective>
+            <owner>712020:f854f496-6317-405f-8145-40e138fac50f</owner>
+            <priority><![CDATA[Normal]]></priority>
+            <status><![CDATA[Draft]]></status>
+            <parameters/>
+            <testDataWrapper/>
+            <testScript type="bdd">
+                <details><![CDATA[Given que o usuário está na página inicial e deslogado
+    And que o produto "Moletom Classic" está disponível em estoque (ID: 123)
+    
+    When o usuário navega para a página do produto "Moletom Classic"
+    And o usuário clica em "Adicionar ao Carrinho"
+    And o usuário clica em "Finalizar Compra"
+    
+    Then o sistema deve exibir a tela de Login ou Cadastro
+    And o carrinho deve conter 1 unidade do "Moletom Classic"
+    
+    When o usuário insere as credenciais inválidas "cliente_errado@exemplo.com" e "SenhaIncorreta"
+    And clica no botão "Entrar"
+    
+    Then o sistema deve **permanecer na tela de Login/Cadastro**
+    And o sistema deve exibir a mensagem de erro "E-mail ou senha inválidos."
+    And o carrinho deve **manter 1 unidade** do "Moletom Classic" no resumo da compra.]]></details>
+            </testScript>
+        </testCase>
+        <testCase id="282505287" key="PD-T3">
+            <attachments/>
+            <confluencePageLinks/>
+            <createdBy>Matheus Castro</createdBy>
+            <createdOn>2025-12-01 15:25:25 UTC</createdOn>
+            <customFields/>
+            <issues/>
+            <labels/>
+            <name><![CDATA[PD 4 - Fluxo Completo: Adicionar Item, Iniciar Checkout e Novo Cadastro]]></name>
+            <owner>712020:f854f496-6317-405f-8145-40e138fac50f</owner>
+            <priority><![CDATA[Normal]]></priority>
+            <status><![CDATA[Draft]]></status>
+            <parameters/>
+            <testDataWrapper/>
+            <testScript type="steps">
+                <steps>
+                    <step index="0">
+                        <customFields/>
+                        <description><![CDATA[Acessar a página inicial da loja (Home Page).]]></description>
+                        <expectedResult><![CDATA[A página carrega com sucesso. <strong data-pasted="true">Não há redirecionamento</strong> para a tela de Login.]]></expectedResult>
+                    </step>
+                    <step index="1">
+                        <customFields/>
+                        <description><![CDATA[Navegar para a página do Produto A ("Calça Jeans Premium").]]></description>
+                        <expectedResult><![CDATA[A página do produto é carregada com sucesso.]]></expectedResult>
+                    </step>
+                    <step index="2">
+                        <customFields/>
+                        <description><![CDATA[Clicar no botão "Adicionar ao Carrinho".]]></description>
+                        <expectedResult><![CDATA[Uma notificação de sucesso aparece. O ícone do carrinho mostra 1 item.]]></expectedResult>
+                    </step>
+                    <step index="3">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,4,1,0" data-pasted="true">Clicar no ícone ou botão "Ver Carrinho".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,4,2,0" data-pasted="true">O Carrinho exibe corretamente 1 unidade da "Calça Jeans Premium".</span>]]></expectedResult>
+                    </step>
+                    <step index="4">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,5,1,0" data-pasted="true">Clicar no botão "Finalizar Compra" ou "Ir para o Checkout".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,5,2,0" data-pasted="true">O sistema redireciona para a tela de <strong>Login/Cadastro</strong>. O item "Calça Jeans Premium" ainda está visível no resumo lateral.</span>]]></expectedResult>
+                    </step>
+                    <step index="5">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,6,1,0" data-pasted="true">Clicar no link ou aba "Criar uma Conta" / "Cadastre-se".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,6,2,0" data-pasted="true">O formulário de cadastro é exibido.</span>]]></expectedResult>
+                    </step>
+                    <step index="6">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,7,1,0" data-pasted="true">Preencher o formulário de Cadastro com dados válidos: Nome: <code>Novo Teste</code>, E-mail: <code>novo_usuario@teste.com</code>, Senha: <code>SenhaValida123</code>.</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,7,2,0" data-pasted="true">Todos os campos são aceitos.</span>]]></expectedResult>
+                    </step>
+                    <step index="7">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,8,1,0" data-pasted="true">Clicar no botão "Cadastrar".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,8,2,0" data-pasted="true">O sistema cria a conta, autentica o usuário e <strong>redireciona para o passo de "Endereço de Entrega"</strong> (próxima etapa do checkout).</span>]]></expectedResult>
+                    </step>
+                    <step index="8">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,9,1,0" data-pasted="true">Verificar o resumo do pedido na página de Endereço.</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,9,2,0" data-pasted="true">&nbsp;<span data-path-to-node="7,9,2,0" data-pasted="true">O item <strong>"Calça Jeans Premium" está listado</strong> e o valor total está correto.&nbsp;</span>O usuário aparece como logado (ex: "Olá, Novo Teste").</span>]]></expectedResult>
+                    </step>
+                </steps>
+            </testScript>
+        </testCase>
+        <testCase id="282506975" key="PD-T4">
+            <attachments/>
+            <confluencePageLinks/>
+            <createdBy>Matheus Castro</createdBy>
+            <createdOn>2025-12-01 15:33:14 UTC</createdOn>
+            <customFields/>
+            <issues/>
+            <labels/>
+            <name><![CDATA[PD 3 - Login Rápido no Checkout]]></name>
+            <owner>712020:f854f496-6317-405f-8145-40e138fac50f</owner>
+            <priority><![CDATA[Normal]]></priority>
+            <status><![CDATA[Approved]]></status>
+            <parameters/>
+            <testDataWrapper/>
+            <testScript type="steps">
+                <steps>
+                    <step index="0">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,1,1,0" data-pasted="true">Acessar a página de qualquer produto (ex: Produto A) e clicar em "Adicionar ao Carrinho".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,1,2,0" data-pasted="true">O produto é adicionado e o ícone do carrinho atualiza (ex: mostra 1 item).</span>]]></expectedResult>
+                    </step>
+                    <step index="1">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,2,1,0" data-pasted="true">Clicar no botão "Finalizar Compra" (sem passar pela página do carrinho).</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,2,2,0" data-pasted="true">O sistema <strong>redireciona para a tela de Login/Cadastro</strong>. O resumo lateral mostra o Produto A.</span>]]></expectedResult>
+                    </step>
+                    <step index="2">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,3,1,0" data-pasted="true">Inserir as credenciais válidas (<code>cliente@teste.com</code>, <code>Senha123</code>) e clicar em "Entrar".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,3,2,0" data-pasted="true">O login é bem-sucedido e o usuário é <strong>redirecionado para a etapa de "Endereço de Entrega"</strong>.</span>]]></expectedResult>
+                    </step>
+                    <step index="3">
+                        <customFields/>
+                        <description><![CDATA[<span data-path-to-node="7,4,1,0" data-pasted="true">Verificar o resumo do pedido na etapa de "Endereço de Entrega".</span>]]></description>
+                        <expectedResult><![CDATA[<span data-path-to-node="7,4,2,0" data-pasted="true">O <strong>Produto A está listado</strong> no pedido. A transição de deslogado para logado foi feita sem perda de dados do carrinho.</span>]]></expectedResult>
+                    </step>
+                </steps>
+            </testScript>
+        </testCase>
+    </testCases>
+</project>
